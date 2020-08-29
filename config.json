@@ -1,0 +1,39 @@
+{
+  "serial_port" : "/dev/ttyUSB2",
+  "serial_bps" : 115200 ,
+
+  "mot" : "images/AArch64_Flash_writer_SCIF_DUMMY_CERT_E6300400_ULCB.mot",
+  "mot_respond" : "Load Program to SystemRAM",
+
+  "bootparam": "images/bootparam_sa0-4x2g.srec",
+  "bootparam_address_start" : "E6320000",
+  "bootparam_address_end" :   "000000",
+  "bootparam_respond" : "Flash writer for R-Car H3",
+
+  "bl2" : "images/bl2-h3ulcb-4x2g.srec",
+  "bl2_address_start" : "E6304000",
+  "bl2_address_end" :   "040000",
+  "bl2_respond" :   "Qspi/HyperFlash Save Information",
+
+  "cert_header": "images/cert_header_sa6-4x2g.srec",
+  "cert_header_address_start" : "E6320000",
+  "cert_header_address_end" :   "180000",
+  "cert_header_respond" :   "Qspi/HyperFlash Save Information",
+
+  "bl31": "images/bl31-h3ulcb-4x2g.srec",
+  "bl31_address_start" :  "44000000",
+  "bl31_address_end" :    "1C0000",
+  "bl31_respond" :    "Qspi/HyperFlash Save Information",
+
+  "tee" : "images/tee-h3ulcb.srec",
+  "tee_address_start" :  "44100000",
+  "tee_address_end" :    "200000",
+  "tee_respond" :    "Qspi/HyperFlash Save Information",
+
+  "u-boot" : "images/u-boot-elf-h3ulcb-grea-4x2g.srec",
+  "u-boot_address_start" :  "50000000",
+  "u-boot_address_end" :    "640000",
+  "u-boot_respond" :    "Qspi/HyperFlash Save Information",
+
+  "save_ok_respond" : "Qspi/HyperFlash Save Information"
+}
