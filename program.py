@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-'''
+"""
                    _ooOoo_
                   o8888888o
                   88" . "88
@@ -19,9 +19,9 @@
      | | :  `- \`.;`\ _ /`;.`/ - ` : | |
      \  \ `-.   \_ __\ /__ _/   .-` /  /
 ======`-.____`-.___\_____/___.-`____.-'======
-                   `=---=' 
+                   `=---='
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-         佛祖保佑       永无BUG 
+         佛祖保佑       永无BUG
 
 
 
@@ -32,7 +32,8 @@
 
 @Description:
 
-'''
+"""
+
 
 from tty import *
 from config import *
@@ -64,6 +65,14 @@ def program_wait(ser, sub_respond):
 
 
 def program_file(ser, start, end, file):
+    """
+
+    :param ser:
+    :param start:
+    :param end:
+    :param file:
+    :return:
+    """
     ser.send("XLS2\r\n")
     time.sleep(0.1)
 
@@ -355,6 +364,67 @@ def program_images():
             break
 
 
+def setenv_cmd(ser, cmd):
+    ser.send(cmd + "\r\n")
+    time.sleep(0.1)
+    print('.', end='', flush=True)
+    pass
+
+
+def setenv_uboot():
+    config = get_config("config.json")
+
+    port = config["serial_port"]
+    bps = config["serial_bps"]
+
+    ser = tty(port, bps)
+
+    # ser.send("printenv\r\n")
+    # time.sleep(2.0)
+
+    baudrate = config["setenv_baudrate"]
+    bootdelay = config["setenv_bootdelay"]
+    ipaddr = config["setenv_ipaddr"]
+    serverip = config["setenv_serverip"]
+    ethaddr = config["setenv_ethaddr"]
+    img_gaea = config["setenv_img-gaea"]
+    dtb_gaea = config["setenv_dtb-gaea"]
+    bootargs_udisk = config["setenv_bootargs_udisk"]
+    bootcmd_udisk = config["setenv_bootcmd_udisk"]
+    booti_cmd = config["setenv_booti_cmd"]
+    bootcmd = config["setenv_bootcmd"]
+
+    print("baudrate = ", baudrate)
+    print("bootdelay = ", bootdelay)
+    print("ipaddr = ", ipaddr)
+    print("serverip = ", serverip)
+    print("ethaddr = ", ethaddr)
+    print("img_gaea = ", img_gaea)
+    print("dtb_gaea = ", dtb_gaea)
+    print("bootargs_udisk = ", bootargs_udisk)
+    print("bootcmd_udisk = ", bootcmd_udisk)
+    print("booti_cmd = ", booti_cmd)
+    print("bootcmd = ", bootcmd)
+
+    setenv_cmd(ser, baudrate)
+    setenv_cmd(ser, bootdelay)
+    setenv_cmd(ser, ipaddr)
+    setenv_cmd(ser, serverip)
+    setenv_cmd(ser, ethaddr)
+    setenv_cmd(ser, img_gaea)
+    setenv_cmd(ser, dtb_gaea)
+    setenv_cmd(ser, bootargs_udisk)
+    setenv_cmd(ser, bootcmd_udisk)
+    setenv_cmd(ser, booti_cmd)
+    setenv_cmd(ser, bootcmd)
+
+    ser.send("saveenv\r\n")
+    time.sleep(1.0)
+    print("\033[1;34m 设置成功! \033[0m")  # 设置高亮,字体为蓝色显示
+    pass
+
+
 if __name__ == '__main__':
-    program_images()
+    # program_images()
+    setenv_uboot()
     pass

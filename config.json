@@ -2,6 +2,7 @@
   "serial_port" : "/dev/ttyUSB2",
   "serial_bps" : 115200 ,
 
+
   "mot" : "images/AArch64_Flash_writer_SCIF_DUMMY_CERT_E6300400_ULCB.mot",
   "mot_respond" : "Load Program to SystemRAM",
 
@@ -30,10 +31,26 @@
   "tee_address_end" :    "200000",
   "tee_respond" :    "Qspi/HyperFlash Save Information",
 
-  "u-boot" : "images/u-boot-elf-h3ulcb-grea-4x2g.srec",
+  "u-boot" : "images/u-boot-elf-h3ulcb-gaea-4x2g.srec",
   "u-boot_address_start" :  "50000000",
   "u-boot_address_end" :    "640000",
   "u-boot_respond" :    "Qspi/HyperFlash Save Information",
 
-  "save_ok_respond" : "Qspi/HyperFlash Save Information"
+  "save_ok_respond" : "Qspi/HyperFlash Save Information",
+
+
+  "setenv_baudrate" : "setenv baudrate 115200",
+  "setenv_bootdelay" : "setenv bootdelay 4",
+
+  "setenv_ipaddr" : "setenv ipaddr 192.168.1.4",
+  "setenv_serverip" : "setenv serverip 192.168.1.3",
+  "setenv_ethaddr" : "setenv ethaddr aa:bb:cc:dd:ee:ff",
+
+  "setenv_img-gaea" : "setenv img-gaea Image-h3ulcb-gaea-4x2g",
+  "setenv_dtb-gaea" : "setenv dtb-gaea r8a7795-h3ulcb-gaea-4x2g.dtb",
+  "setenv_bootargs_udisk" : "setenv bootargs_udisk 'console=ttySC0 rw root=/dev/sda1 rootfstype=ext4 rootwait ignore_loglevel' ",
+  "setenv_bootcmd_udisk" : "setenv bootcmd_udisk 'setenv bootargs ${bootargs_udisk};ext2load usb 0:1 0x48080000 /boot/${img-gaea};ext2load usb 0:1 0x48000000 /boot/${dtb-gaea};run booti_cmd' ",
+
+  "setenv_booti_cmd" : "setenv booti_cmd 'booti 0x48080000 - 0x48000000' ",
+  "setenv_bootcmd" : "setenv bootcmd 'usb start;run bootcmd_udisk' "
 }

@@ -73,7 +73,7 @@ class tty:
         """
         with open(file, "r") as f:
             if self.ser.isOpen():
-                print("program the image : %s ", file)
+                print("program the image : %s " % file)
 
                 count = 0
                 for line in f.readlines():
@@ -91,7 +91,7 @@ class tty:
                         print('.', end='', flush=True)
 
                 print('')
-                print("program %s successfully !", file)
+                print("program %s successfully !" % file)
             else:
                 print("The device serial port is not open")
 
