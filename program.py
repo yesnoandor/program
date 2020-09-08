@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/python3
 # -*- coding: utf-8 -*-
 
 """
@@ -350,6 +350,13 @@ def program_images():
             if program_ready:
                 program_file(ser, bl31_address_start, bl31_address_end, bl31_srec)
                 time.sleep(0.1)
+                fsm.state = 'tee'
+
+        elif fsm.state == 'tee':
+            program_ready = program_wait(ser, tee_respond)
+            if program_ready:
+                program_file(ser, tee_address_start, tee_address_end, tee_srec)
+                time.sleep(0.1)
                 fsm.state = 'uboot'
 
         elif fsm.state == 'uboot':
@@ -425,6 +432,6 @@ def setenv_uboot():
 
 
 if __name__ == '__main__':
-    # program_images()
-    setenv_uboot()
+    program_images()
+    # setenv_uboot()
     pass
